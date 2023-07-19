@@ -25,6 +25,19 @@ class MainTabBarController: UITabBarController{
             generateViewController(rootViewController: SearchViewController(), image: #imageLiteral(resourceName: "search"), title: "Search"),
             generateViewController(rootViewController: ViewController(), image: #imageLiteral(resourceName: "library"), title: "Library")
         ]
+        let separatorView = UIView()
+        separatorView.backgroundColor = .gray // Настройте цвет разделителя
+        separatorView.translatesAutoresizingMaskIntoConstraints = false
+        view.insertSubview(separatorView, at: 1) // Отображаем разделитель перед первой вкладкой
+        
+        // Настраиваем констрейнты для разделителя
+        // Устанавливаем меньшее значение высоты для разделителя (например, 0.5)
+        separatorView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        
+        separatorView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        separatorView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        separatorView.bottomAnchor.constraint(equalTo: tabBar.topAnchor).isActive = true
+        separatorView.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
     
