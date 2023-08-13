@@ -22,7 +22,7 @@ class MainTabBarController: UITabBarController{
         
         
         viewControllers = [     //свойство для передачи контроллеров в TabBar
-            generateViewController(rootViewController: SearchViewController(), image: #imageLiteral(resourceName: "search"), title: "Search"),
+            generateViewController(rootViewController: SearchMusicViewController(), image: #imageLiteral(resourceName: "search"), title: "Search"),
             generateViewController(rootViewController: ViewController(), image: #imageLiteral(resourceName: "library"), title: "Library")
         ]
         let separatorView = UIView()
