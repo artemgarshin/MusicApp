@@ -3,29 +3,46 @@
 //  MusicApp
 //
 //  Created by Артем Гаршин on 13.08.2023.
-//  Copyright (c) 2023 ___ORGANIZATIONNAME___. All rights reserved.
+
 //
 
 import UIKit
 
 enum Search {
-   
-  enum Model {
-    struct Request {
-      enum RequestType {
-        case some
-      }
+    
+    enum Model {
+        struct Request {
+            enum RequestType {
+                case some
+                case getTracks(searchTerm: String)
+            }
+        }
+        struct Response {
+            enum ResponseType {
+                case some
+                case presentTracks(SearchResponse: SearchResponse?)
+            }
+        }
+        struct ViewModel {
+            enum ViewModelData {
+                case some
+                case displayTracks(searchViewModel: SearchViewModel)
+            }
+        }
     }
-    struct Response {
-      enum ResponseType {
-        case some
-      }
+    
+    
+}
+
+
+//MARK: -структура для придавани янормальных названияй и подготовка данных 
+struct SearchViewModel{
+    struct Cell{
+        var iconUrlString: String?
+        var trackName: String
+        var collectionName: String?
+        var artistName: String
     }
-    struct ViewModel {
-      enum ViewModelData {
-        case some
-      }
-    }
-  }
-  
+    
+    let cells: [Cell]
 }

@@ -18,11 +18,11 @@ class MainTabBarController: UITabBarController{
         
         tabBar.tintColor = #colorLiteral(red: 1, green: 0.1719063818, blue: 0.4505617023, alpha: 1)
         
-        
+        let searchVC: SearchViewController = SearchViewController.loadFromStoryboard()
         
         
         viewControllers = [     //свойство для передачи контроллеров в TabBar
-            generateViewController(rootViewController: SearchMusicViewController(), image: #imageLiteral(resourceName: "search"), title: "Search"),
+            generateViewController(rootViewController: searchVC, image: #imageLiteral(resourceName: "search"), title: "Search"),
             generateViewController(rootViewController: ViewController(), image: #imageLiteral(resourceName: "library"), title: "Library")
         ]
         let separatorView = UIView()
