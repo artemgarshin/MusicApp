@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SDWebImage
 
 
 protocol TrackCellViewModel {
@@ -29,13 +30,21 @@ class TrackCell: UITableViewCell{
         super.awakeFromNib()
     }
     
-    
+    //для экономии памяти потому что ячейки исчезают елси ячейки не видын они отправляютс в кеш
+    override func prepareForReuse() {
+
+        super.prepareForReuse()
+        
+        trackimageView.image = nil
+    }
     
     func set(viewModel: TrackCellViewModel){
         tracknameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName
         collectionNameLabel.text = viewModel.collectionName
 
+        guard let url = URL(string: viewModel.iconUrlString ?? "") else{return}
         
+        trackimageView.sd_setImage(with: url, completed: nil)
     }
 }
