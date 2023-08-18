@@ -2,7 +2,7 @@
 //  MainTabBarController.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 14.07.2023.
+//  
 //
 
 import UIKit

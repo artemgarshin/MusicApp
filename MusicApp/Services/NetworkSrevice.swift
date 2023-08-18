@@ -2,7 +2,7 @@
 //  NetworkSrevice.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 09.08.2023.
+//  
 //
 
 import Foundation

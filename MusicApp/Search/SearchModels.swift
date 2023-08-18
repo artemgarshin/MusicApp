@@ -2,7 +2,7 @@
 //  SearchModels.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 13.08.2023.
+//  .
 
 //
 
@@ -13,20 +13,19 @@ enum Search {
     enum Model {
         struct Request {
             enum RequestType {
-                case some
                 case getTracks(searchTerm: String)
             }
         }
         struct Response {
             enum ResponseType {
-                case some
                 case presentTracks(SearchResponse: SearchResponse?)
+                case presentFooterView
             }
         }
         struct ViewModel {
             enum ViewModelData {
-                case some
                 case displayTracks(searchViewModel: SearchViewModel)
+                case displayFooterView
             }
         }
     }
@@ -35,7 +34,7 @@ enum Search {
 }
 
 
-//MARK: -структура для придавани янормальных названияй и подготовка данных
+//MARK: -структура для придавани нормальных названияй и подготовка данных
 struct SearchViewModel{
     struct Cell: TrackCellViewModel{
                 

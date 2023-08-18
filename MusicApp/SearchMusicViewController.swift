@@ -2,7 +2,6 @@
 //  SearchViewController.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 14.07.2023.
 //
 
 import UIKit
@@ -31,10 +30,6 @@ class SearchMusicViewController: UITableViewController {
         setupSearchController()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
-        // Установка стиля разделителя
-//        tableView.separatorStyle = .singleLine
-//        tableView.separatorColor = .gray
-//        tableView.separatorInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
     }
     
     private func setupSearchController(){

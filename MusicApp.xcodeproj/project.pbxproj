@@ -25,6 +25,7 @@
 		0F55BA232A61CFAB0019955B /* SearchMusicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F55BA222A61CFAB0019955B /* SearchMusicViewController.swift */; };
 		0F55BA252A6840170019955B /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F55BA242A6840170019955B /* SearchResponse.swift */; };
 		0F55BA272A83C9F50019955B /* NetworkSrevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F55BA262A83C9F50019955B /* NetworkSrevice.swift */; };
+		0F9699312A8F9B1E0017998A /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9699302A8F9B1E0017998A /* FooterView.swift */; };
 		B01C1529A9D2EAAF87C0C1EF /* Pods_MusicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81914A4269142B546419913 /* Pods_MusicApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -50,6 +51,7 @@
 		0F55BA222A61CFAB0019955B /* SearchMusicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMusicViewController.swift; sourceTree = "<group>"; };
 		0F55BA242A6840170019955B /* SearchResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
 		0F55BA262A83C9F50019955B /* NetworkSrevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkSrevice.swift; sourceTree = "<group>"; };
+		0F9699302A8F9B1E0017998A /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		EF2D0B150F188D0DE1F66A3B /* Pods-MusicApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp.debug.xcconfig"; path = "Target Support Files/Pods-MusicApp/Pods-MusicApp.debug.xcconfig"; sourceTree = "<group>"; };
 		F81914A4269142B546419913 /* Pods_MusicApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -78,6 +80,7 @@
 		0F1DDA482A89333A0095911C /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				0F96992F2A8F9B0E0017998A /* FootrView */,
 				0F1DDA5E2A8E436F0095911C /* Cell */,
 				0F1DDA572A8A7C9C0095911C /* SearchViewController.storyboard */,
 				0F1DDA4D2A89338D0095911C /* SearchViewController.swift */,
@@ -136,11 +139,11 @@
 		0F55BA0B2A61CD590019955B /* MusicApp */ = {
 			isa = PBXGroup;
 			children = (
+				0F1DDA462A8932BE0095911C /* Services */,
 				0F1DDA482A89333A0095911C /* Search */,
 				0F55BA0C2A61CD590019955B /* AppDelegate.swift */,
 				0F55BA0E2A61CD590019955B /* SceneDelegate.swift */,
 				0F55BA202A61CEEB0019955B /* MainTabBarController.swift */,
-				0F1DDA462A8932BE0095911C /* Services */,
 				0F55BA222A61CFAB0019955B /* SearchMusicViewController.swift */,
 				0F55BA102A61CD590019955B /* ViewController.swift */,
 				0F1DDA5B2A8A80600095911C /* Helpers */,
@@ -148,6 +151,14 @@
 				0F55BA1A2A61CD5A0019955B /* Info.plist */,
 			);
 			path = MusicApp;
+			sourceTree = "<group>";
+		};
+		0F96992F2A8F9B0E0017998A /* FootrView */ = {
+			isa = PBXGroup;
+			children = (
+				0F9699302A8F9B1E0017998A /* FooterView.swift */,
+			);
+			path = FootrView;
 			sourceTree = "<group>";
 		};
 		2012E24B9FB1A09CFE69800C /* Frameworks */ = {
@@ -287,6 +298,7 @@
 				0F55BA252A6840170019955B /* SearchResponse.swift in Sources */,
 				0F1DDA552A89338D0095911C /* SearchInteractor.swift in Sources */,
 				0F55BA0D2A61CD590019955B /* AppDelegate.swift in Sources */,
+				0F9699312A8F9B1E0017998A /* FooterView.swift in Sources */,
 				0F55BA272A83C9F50019955B /* NetworkSrevice.swift in Sources */,
 				0F1DDA512A89338D0095911C /* SearchWorker.swift in Sources */,
 				0F1DDA542A89338D0095911C /* SearchViewController.swift in Sources */,
