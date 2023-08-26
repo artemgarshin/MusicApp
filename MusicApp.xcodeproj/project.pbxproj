@@ -28,6 +28,7 @@
 		0F9699312A8F9B1E0017998A /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9699302A8F9B1E0017998A /* FooterView.swift */; };
 		0F9699342A8FBD190017998A /* TrackDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0F9699332A8FBD190017998A /* TrackDetailView.xib */; };
 		0F9699362A8FBD250017998A /* TrackDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9699352A8FBD250017998A /* TrackDetailView.swift */; };
+		0F9699382A9A3D370017998A /* CMtime + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F9699372A9A3D370017998A /* CMtime + extension.swift */; };
 		B01C1529A9D2EAAF87C0C1EF /* Pods_MusicApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F81914A4269142B546419913 /* Pods_MusicApp.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,6 +57,7 @@
 		0F9699302A8F9B1E0017998A /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
 		0F9699332A8FBD190017998A /* TrackDetailView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrackDetailView.xib; sourceTree = "<group>"; };
 		0F9699352A8FBD250017998A /* TrackDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackDetailView.swift; sourceTree = "<group>"; };
+		0F9699372A9A3D370017998A /* CMtime + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CMtime + extension.swift"; sourceTree = "<group>"; };
 		EF2D0B150F188D0DE1F66A3B /* Pods-MusicApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicApp.debug.xcconfig"; path = "Target Support Files/Pods-MusicApp/Pods-MusicApp.debug.xcconfig"; sourceTree = "<group>"; };
 		F81914A4269142B546419913 /* Pods_MusicApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				0F1DDA592A8A80550095911C /* UIViewController+StoryBoard.swift */,
+				0F9699372A9A3D370017998A /* CMtime + extension.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -316,6 +319,7 @@
 				0F9699312A8F9B1E0017998A /* FooterView.swift in Sources */,
 				0F55BA272A83C9F50019955B /* NetworkSrevice.swift in Sources */,
 				0F1DDA512A89338D0095911C /* SearchWorker.swift in Sources */,
+				0F9699382A9A3D370017998A /* CMtime + extension.swift in Sources */,
 				0F1DDA542A89338D0095911C /* SearchViewController.swift in Sources */,
 				0F1DDA522A89338D0095911C /* SearchRouter.swift in Sources */,
 				0F1DDA622A8E43A40095911C /* TrackCell.swift in Sources */,

@@ -49,6 +49,7 @@ class TrackDetailView: UIView{
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
         monitorStartTime()
+        observePlayerCurrentTime()
         
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600") // меняем разрешение
         
@@ -65,18 +66,30 @@ class TrackDetailView: UIView{
         player.play()
     }
     
-    //MARK: -Time setup
+    //MARK: Time setup
     private func monitorStartTime(){
         
         let time = CMTimeMake(value: 1, timescale: 3)
         let times = [NSValue(time: time)]
         
-        // нужно использовать weak self чтобы этот view удалялся из обьекта 
+        // нужно использовать weak self чтобы этот view удалялся из обьекта
         player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
             self?.enlargetrackimageView()
         }
     }
     
+    private func observePlayerCurrentTime(){
+        
+        let interval = CMTimeMake(value: 1, timescale: 2)
+        player.addPeriodicTimeObserver(forInterval: interval, queue: .main) { [weak self] (time) in
+            self?.currentTimeLabel.text = time.toDisplayString() // сколько время уже играет
+            
+            let durationTime = self?.player.currentItem?.duration
+            let currentDurationTimeText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
+            
+            self?.durationLabel.text = "-\(currentDurationTimeText)" // сколько время осталось
+        }
+    }
     
     
     //MARK: - Animations
