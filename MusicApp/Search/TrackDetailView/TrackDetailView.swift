@@ -30,19 +30,27 @@ class TrackDetailView: UIView{
     }()
     
     
-    
+    //MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        trackimageView.backgroundColor = .blue
+        
+        let scale: CGFloat = 0.8
+        trackimageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+        
+        trackimageView.layer.cornerRadius = 5
+        
+        trackimageView.backgroundColor = .white
     }
     
+    //MARK: - Setup
     func set(viewModel: SearchViewModel.Cell){
         trackTitleLabel.text = viewModel.trackName
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
+        monitorStartTime()
         
-        let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600") // меняем разрешение 
+        let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600") // меняем разрешение
         
         guard let url = URL(string: string600 ?? "") else {return}
         trackimageView.sd_setImage(with: url)
@@ -57,6 +65,36 @@ class TrackDetailView: UIView{
         player.play()
     }
     
+    //MARK: -Time setup
+    private func monitorStartTime(){
+        
+        let time = CMTimeMake(value: 1, timescale: 3)
+        let times = [NSValue(time: time)]
+        
+        // нужно использовать weak self чтобы этот view удалялся из обьекта 
+        player.addBoundaryTimeObserver(forTimes: times, queue: .main) { [weak self] in
+            self?.enlargetrackimageView()
+        }
+    }
+    
+    
+    
+    //MARK: - Animations
+    private func enlargetrackimageView(){
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut) {
+            self.trackimageView.transform = .identity
+        }
+    }
+    
+    private func reduceTrackImageView(){
+        UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1, options: .curveEaseOut) {
+            let scale: CGFloat = 0.8
+            self.trackimageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+        }
+    }
+    
+    
+    //MARK: - @IBACTIONS
     @IBAction func handleVolumeSlider(_ sender: Any) {
     }
     
@@ -80,9 +118,11 @@ class TrackDetailView: UIView{
         if player.timeControlStatus == .paused{
             player.play()
             playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            enlargetrackimageView()
         }else{
             player.pause()
             playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            reduceTrackImageView()
         }
     }
     

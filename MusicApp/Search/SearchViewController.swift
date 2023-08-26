@@ -49,8 +49,11 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
         super.viewDidLoad()
         
         setup()
-        setupSearchBar()
+        
         setupTableView()
+        setupSearchBar()
+        
+        searchBar(searchController.searchBar, textDidChange: "Travis Scott")
     }
     
     //MARK: -searchBar setup
@@ -101,7 +104,7 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = table.dequeueReusableCell(withIdentifier: TrackCell.reuseId , for: indexPath) as! TrackCell
         
-        cell.trackimageView.backgroundColor = .red
+        cell.trackimageView.backgroundColor = .white
         let cellViewModel = searchViewModel.cells[indexPath.row]
         print(cellViewModel.previewUrl)
         cell.set(viewModel: cellViewModel)
