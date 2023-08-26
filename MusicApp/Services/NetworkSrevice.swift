@@ -1,9 +1,7 @@
 //
 //  NetworkSrevice.swift
 //  MusicApp
-//
-//  
-//
+
 
 import Foundation
 import UIKit
@@ -15,7 +13,7 @@ class NetworkSrevice{
     func fetchTracks(searchText:String, competion: @escaping(SearchResponse?) -> Void){
         let url = "https://itunes.apple.com/search"
         let parameters = ["term":"\(searchText)",
-                         "limit":"10",
+                         "limit":"20",
                           "media":"music"]
         
         AF.request(url, method: .get, parameters: parameters, encoding: URLEncoding.default, headers: nil).responseData { (dataResponse) in

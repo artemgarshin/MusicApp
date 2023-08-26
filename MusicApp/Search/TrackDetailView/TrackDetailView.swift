@@ -2,8 +2,7 @@
 //  TrackDetailView.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 18.08.2023.
-//
+
 
 import Foundation
 import UIKit
@@ -88,7 +87,17 @@ class TrackDetailView: UIView{
             let currentDurationTimeText = ((durationTime ?? CMTimeMake(value: 1, timescale: 1)) - time).toDisplayString()
             
             self?.durationLabel.text = "-\(currentDurationTimeText)" // сколько время осталось
+            self?.updateCurrentTimeSlider()
         }
+    }
+    
+    
+    private func updateCurrentTimeSlider(){
+        let currentTimeSeconds = CMTimeGetSeconds(player.currentTime())
+        let durationSeconds = CMTimeGetSeconds(player.currentItem?.duration ?? CMTimeMake(value: 1, timescale: 1))
+        
+        let percentage = currentTimeSeconds / durationSeconds
+        self.currentTime.value = Float(percentage)
     }
     
     
@@ -109,9 +118,18 @@ class TrackDetailView: UIView{
     
     //MARK: - @IBACTIONS
     @IBAction func handleVolumeSlider(_ sender: Any) {
+        player.volume = volumeSlider.value
+        
     }
     
     @IBAction func handleCurrentTimeSlider(_ sender: Any) {
+        let percentage = currentTime.value
+        guard let duration = player.currentItem?.duration else {return}
+        let durationInSeconds = CMTimeGetSeconds(duration)
+        
+        let seekTimeInSeconds = Float64(percentage) * durationInSeconds
+        let seekTime = CMTimeMakeWithSeconds(seekTimeInSeconds, preferredTimescale: 1)
+        player.seek(to: seekTime)
     }
     
     @IBAction func dragDownButtonTapped(_ sender: Any) {
