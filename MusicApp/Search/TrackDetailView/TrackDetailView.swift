@@ -9,6 +9,10 @@ import UIKit
 import SDWebImage
 import AVFoundation
 
+protocol TrackMovingDelegate: class{
+    func moveBackForPreviousTrack() -> SearchViewModel.Cell?
+    func moveForwardForNextTrack() -> SearchViewModel.Cell?
+}
 
 class TrackDetailView: UIView{
     
@@ -29,6 +33,8 @@ class TrackDetailView: UIView{
     }()
     
     
+    weak var delegate: TrackMovingDelegate?
+    
     //MARK: - awakeFromNib
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +53,7 @@ class TrackDetailView: UIView{
         trackTitleLabel.text = viewModel.trackName
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
+        playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         monitorStartTime()
         observePlayerCurrentTime()
         
@@ -139,9 +146,15 @@ class TrackDetailView: UIView{
     
     
     @IBAction func previusTrack(_ sender: Any) {
+        let cellViewModel = delegate?.moveBackForPreviousTrack()
+        guard let cellInfo = cellViewModel else {return}
+        self.set(viewModel: cellInfo)
     }
     
     @IBAction func nextTrack(_ sender: Any) {
+        let cellViewModel = delegate?.moveForwardForNextTrack()
+        guard let cellInfo = cellViewModel else {return}
+        self.set(viewModel: cellInfo)
     }
     
     
