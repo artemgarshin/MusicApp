@@ -23,6 +23,7 @@ class SearchViewController: UIViewController, SearchDisplayLogic {
     private var timer: Timer?
     
     private lazy var footerView = FooterView()
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     
     // MARK: Setup
@@ -117,12 +118,8 @@ extension SearchViewController: UITableViewDelegate, UITableViewDataSource {
         let cellViewModel = searchViewModel.cells[indexPath.row]
         print(cellViewModel.trackName)
         
-        let window = UIApplication.shared.keyWindow
-        let trackDetailsView = Bundle.main.loadNibNamed("TrackDetailView", owner: self)?.first as! TrackDetailView
+        self.tabBarDelegate?.maximizedTrackDetailController(viewModel: cellViewModel)
         
-        trackDetailsView.set(viewModel: cellViewModel)
-        trackDetailsView.delegate = self
-        window?.addSubview(trackDetailsView)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -161,10 +158,8 @@ extension SearchViewController: UISearchBarDelegate {
 }
 
 
-
+//MARK: goBack buttons
 extension SearchViewController: TrackMovingDelegate{
-    
-    
     
     private func getTrack(isForwardTrack: Bool) -> SearchViewModel.Cell?{
         guard let indexPath = table.indexPathForSelectedRow else {return nil}
@@ -198,6 +193,4 @@ extension SearchViewController: TrackMovingDelegate{
         print("go forward")
         return getTrack(isForwardTrack: true)
     }
-    
-    
 }

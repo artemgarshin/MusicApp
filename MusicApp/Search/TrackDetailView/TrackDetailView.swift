@@ -16,6 +16,15 @@ protocol TrackMovingDelegate: class{
 
 class TrackDetailView: UIView{
     
+    
+    @IBOutlet weak var miniGoForwardButton: UIButton!
+    @IBOutlet weak var maximizedStackView: UIStackView!
+    @IBOutlet weak var miniTrackTitleLabel: UILabel!
+    @IBOutlet weak var miniTrackImageView: UIImageView!
+    @IBOutlet weak var miniTrackView: UIView!
+    @IBOutlet weak var miniPlayPauseButton: UIButton!
+    
+    
     @IBOutlet weak var trackimageView: UIImageView!
     @IBOutlet weak var currentTime: UISlider!
     @IBOutlet weak var currentTimeLabel: UILabel!
@@ -34,6 +43,7 @@ class TrackDetailView: UIView{
     
     
     weak var delegate: TrackMovingDelegate?
+    weak var tabBarDelegate: MainTabBarControllerDelegate?
     
     //MARK: - awakeFromNib
     override func awakeFromNib() {
@@ -45,23 +55,29 @@ class TrackDetailView: UIView{
         
         trackimageView.layer.cornerRadius = 5
         
-        trackimageView.backgroundColor = .white
+        miniPlayPauseButton.imageEdgeInsets = .init(top: 11, left: 11, bottom: 11, right: 11)
+        
+        setupGestures()
     }
     
     //MARK: - Setup
     func set(viewModel: SearchViewModel.Cell){
+        miniTrackTitleLabel.text = viewModel.trackName
         trackTitleLabel.text = viewModel.trackName
         authorTitleLabel.text = viewModel.artistName
         playTrack(previewUrl: viewModel.previewUrl)
         playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+        miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
         monitorStartTime()
         observePlayerCurrentTime()
         
         let string600 = viewModel.iconUrlString?.replacingOccurrences(of: "100x100", with: "600x600") // меняем разрешение
         
         guard let url = URL(string: string600 ?? "") else {return}
+        miniTrackImageView.sd_setImage(with: url)
         trackimageView.sd_setImage(with: url)
     }
+    
     
     private func playTrack(previewUrl: String?){
         print("Gытаюсь включить трек по ссылке \(previewUrl ?? "Not")")
@@ -71,6 +87,81 @@ class TrackDetailView: UIView{
         player.replaceCurrentItem(with: playerItem)
         player.play()
     }
+    
+    
+    //MARK: Работа с жестами
+    private func setupGestures(){
+        
+        
+        miniTrackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTapMaximized)))
+        miniTrackView.addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handlePan)))
+        
+        addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(handleDismissalPan)))
+    }
+    
+    @objc private func handleTapMaximized(){
+        print("))))")
+        
+        self.tabBarDelegate?.maximizedTrackDetailController(viewModel: nil)
+    }
+    
+    @objc private func handlePan(gesture: UIPanGestureRecognizer) {
+        switch gesture.state {
+        case .began:
+            print("Began")
+        case .changed:
+            handlePanChanged(gesture: gesture)
+        case .ended:
+            handlePanEnded(gesture: gesture)
+        @unknown default:
+            print("unknown default")
+        }
+
+    }
+    
+    private func handlePanChanged(gesture: UIPanGestureRecognizer){
+        let translation = gesture.translation(in: self.superview)
+        
+        self.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        
+        let newAlpha = 1 + translation.y / 200
+        self.miniTrackView.alpha = newAlpha < 0 ? 0 : newAlpha
+        self.maximizedStackView.alpha = -translation.y / 200
+    }
+    
+    private func handlePanEnded(gesture: UIPanGestureRecognizer){
+        let translation = gesture.translation(in: self.superview)
+        let velocity = gesture.velocity(in: self.superview)
+        
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1,options: .curveEaseOut) {
+            self.transform = .identity
+            if translation.y < -200 || velocity.y < -500{
+                self.tabBarDelegate?.maximizedTrackDetailController(viewModel: nil)
+            }else{
+                self.miniTrackView.alpha = 1
+                self.maximizedStackView.alpha = 0
+            }
+        }
+    }
+    
+    @objc private func handleDismissalPan(gesture: UIPanGestureRecognizer){
+        switch gesture.state{
+        case .changed:
+            let translation = gesture.translation(in: self.superview)
+            maximizedStackView.transform = CGAffineTransform(translationX: 0, y: translation.y)
+        case .ended:
+            let translation = gesture.translation(in: self.superview)
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 1, options: .curveEaseOut) {
+                self.maximizedStackView.transform = .identity
+                if translation.y > 50{
+                    self.tabBarDelegate?.minimizedTrackDetailController()
+                }
+            }
+        @unknown default:
+            print("unknown default")
+        }
+    }
+
     
     //MARK: Time setup
     private func monitorStartTime(){
@@ -141,7 +232,9 @@ class TrackDetailView: UIView{
     
     @IBAction func dragDownButtonTapped(_ sender: Any) {
         
-        self.removeFromSuperview()
+        
+        self.tabBarDelegate?.minimizedTrackDetailController()
+        //self.removeFromSuperview()
     }
     
     
@@ -162,10 +255,13 @@ class TrackDetailView: UIView{
         if player.timeControlStatus == .paused{
             player.play()
             playPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "pause"), for: .normal)
+            
             enlargetrackimageView()
         }else{
             player.pause()
             playPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
+            miniPlayPauseButton.setImage(#imageLiteral(resourceName: "play"), for: .normal)
             reduceTrackImageView()
         }
     }
