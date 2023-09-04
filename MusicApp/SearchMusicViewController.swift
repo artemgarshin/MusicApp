@@ -1,9 +1,6 @@
 //
 //  SearchViewController.swift
 //  MusicApp
-//
-//
-
 import UIKit
 import Alamofire
 

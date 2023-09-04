@@ -2,8 +2,7 @@
 //  CMtime + extension.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 26.08.2023.
-//
+
 
 import Foundation
 import AVFoundation

@@ -2,8 +2,7 @@
 //  trackCell.swift
 //  MusicApp
 //
-//  Created by Артем Гаршин on 17.08.2023.
-//
+
 
 import Foundation
 import UIKit
@@ -30,6 +29,7 @@ class TrackCell: UITableViewCell{
         super.awakeFromNib()
     }
     
+    @IBOutlet weak var addTrackOutlet: UIButton!
     //для экономии памяти потому что ячейки исчезают елси ячейки не видын они отправляютс в кеш
     override func prepareForReuse() {
 
@@ -38,7 +38,21 @@ class TrackCell: UITableViewCell{
         trackimageView.image = nil
     }
     
-    func set(viewModel: TrackCellViewModel){
+    var cell: SearchViewModel.Cell?
+    
+    func set(viewModel: SearchViewModel.Cell){
+        
+        self.cell = viewModel
+        let savedTracks = UserDefaults.standard.savedTracks()
+        let hasFavourite = savedTracks.firstIndex(where: {
+            $0.trackName == self.cell?.trackName && $0.artistName == self.cell?.artistName
+        }) != nil
+        if hasFavourite{
+            addTrackOutlet.isHidden = true
+        } else{
+            addTrackOutlet.isHidden = false
+        }
+        
         tracknameLabel.text = viewModel.trackName
         artistNameLabel.text = viewModel.artistName
         collectionNameLabel.text = viewModel.collectionName
@@ -47,4 +61,21 @@ class TrackCell: UITableViewCell{
         
         trackimageView.sd_setImage(with: url, completed: nil)
     }
+    
+    
+    @IBAction func addTrackAction(_ sender: Any) {
+        let defaults = UserDefaults.standard
+        guard let cell = cell else {return}
+        addTrackOutlet.isHidden = true
+        var listOfTracks = defaults.savedTracks()
+        
+        listOfTracks.append(cell)
+        
+        if let savedData = try? NSKeyedArchiver.archivedData(withRootObject: listOfTracks, requiringSecureCoding: false){
+            print("успех")
+            defaults.set(savedData, forKey: UserDefaults.favouriteTrackKey)
+        }
+    }
+    
+
 }
